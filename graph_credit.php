@@ -68,11 +68,12 @@
 			if (!$cred)
 				echo "<p class='infcp'>Информация по кредиту №$id не найдена!</p>\n";
 			else {
-				$z = NULL; // задолженность
+				$z = NULL; // задолженность              	
 				$res = credit_tail_sum($id, $z, $mysqli);
 				verify($res == "", $res);
 
-				echo "<p class='infcph'>Информация по кредиту №" . $cred["id"] . " от " . out_date($cred["opendate"]) . " по состоянию на " . out_date($curdate) . "</p>\n";
+				echo "<p class='infcph'>Информация по кредиту №" . $cred["id"] . " от " . out_date($cred["opendate"]) . 
+					" по состоянию на " . out_date($curdate) . "</p>\n";
 				echo "<p class='infcp'>\n";
 				echo "Наименование продукта: " . $cred["descript"] . "<br>\n";
 				echo "Сумма кредита: " . standart_sum($cred["sumcr"]) . " " . $cred["isocode"] . "<br>\n";

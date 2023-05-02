@@ -32,7 +32,7 @@
 	//addlog("dst_accountnum = $dst_accountnum");
 
 	if ($dst_accountnum == "") { // счет в той же валюте не найден
-		$stmt = $mysqli->prepare("SELECT accountnum FROM account WHERE idclient = ? AND closed = '0000-00-00' AND `default` = 1");
+		$stmt = $mysqli->prepare("SELECT accountnum FROM account WHERE idclient = ? AND (closed = '0000-00-00' OR closed IS NULL) AND `default` = 1");
 		$stmt->bind_param("s", $dst_id);
 		$stmt->execute();
 		$dst_accountnum = $stmt->get_result()->fetch_row()[0];

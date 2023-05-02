@@ -43,7 +43,7 @@
 		verify($stmt->execute(), "Ошибка установки новой даты операционного дня");
 
 		// пересчет процентов по вкладам
-		$result = $mysqli->query("SELECT id FROM deposits WHERE closedate = '0000-00-00'");
+		$result = $mysqli->query("SELECT id FROM deposits WHERE closedate = '0000-00-00' OR closedate IS NULL");
 		$deposits = array();
 		while ($row = $result->fetch_assoc())
 			$deposits[] = $row;
@@ -56,15 +56,15 @@
 		}
 
 		// погашение кредитов
-		addlog("// погашение кредитов");
+		//addlog("// погашение кредитов");
 		$result = $mysqli->query("SELECT id FROM credits WHERE (closedate = '0000-00-00' OR closedate IS NULL)");
 		$credits = [];
 		while ($row = $result->fetch_assoc())
 			$credits[] = $row;
-		addlog("кол-во: " . count($credits));
+		//addlog("кол-во: " . count($credits));
 		foreach ($credits as $cred) {
 			$id = $cred["id"];
-			addlog("Расчет кредита " . $id);
+			//addlog("Расчет кредита " . $id);
 			$res = update_credit($id, $new_date, $_SESSION["user"]["login"], $mysqli);
 			//addlog("Результат " . $res);
 			verify($res == "", "Ошибка при пересчете кредита $id.\n$res");
@@ -77,7 +77,7 @@
 	}
 	catch (Exception $e) {
 		$mysqli->query("ROLLBACK");
-		addlog("Ошибка change_operdate(): " . $e->getMessage());
+		//addlog("Ошибка change_operdate(): " . $e->getMessage());
 		$_SESSION['message-operdate'] = $e->getMessage();
 		header('Location: ../acc.php#change_operdate');
 	}

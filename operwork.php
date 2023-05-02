@@ -251,7 +251,7 @@
 					<div>
 						<input class="button" type="submit" value="Перевести" title="Перевести средства на выбранный счёт получателя">
 					</div>
-					<label class="report"><?php echo session_message("message-transaction_in"); ?></label>
+					<label class="report"><?php echo session_message("message-transaction_out"); ?></label>
 					<?php } else { /* нет подходящих счетов */ ?>
 					<label class="information">Нет открытых счетов</label>
 					<?php } ?>
